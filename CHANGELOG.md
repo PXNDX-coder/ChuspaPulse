@@ -23,6 +23,7 @@ y este proyecto sigue el versionado [SemVer](https://semver.org/lang/es/).
 - feat(storage): agregar módulo de almacenamiento persistente local para las métricas recolectadas.
 - feat(http): implementar handlers HTTP para la exposición de endpoints del servidor de monitoreo.
 - Persistencia del historial de alertas en SQLite y endpoint GET /alerts/history (#839)
+- feat(alertas): notificar alertas disparadas por webhook HTTP genérico configurable en `[webhook]` de pulso.toml (#840)
 
 ## [0.1.0] - 2026-04-22
 
