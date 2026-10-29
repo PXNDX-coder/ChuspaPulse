@@ -1,6 +1,7 @@
 #include "gestor_alertas.hpp"
 
 #include <chrono>
+#include <utility>
 
 namespace pulso::alertas {
 namespace {
@@ -26,6 +27,10 @@ void GestorAlertas::setCallback(std::function<void(const std::string&)> callback
     callback_ = callback;
 }
 
+void GestorAlertas::setNotificador(std::shared_ptr<INotificador> notificador) {
+    notificador_ = std::move(notificador);
+}
+
 void GestorAlertas::evaluar(const pulso::MetricSnapshot& snap) const {
     if (alertas_.empty()) {
         return;
@@ -38,6 +43,18 @@ void GestorAlertas::evaluar(const pulso::MetricSnapshot& snap) const {
 
         if (callback_) {
             callback_(alerta.mensaje());
+        }
+
+        if (notificador_) {
+            EventoAlerta evento;
+            evento.timestamp = std::chrono::duration_cast<std::chrono::seconds>(
+                std::chrono::system_clock::now().time_since_epoch()
+            ).count();
+            evento.metrica = alerta.metrica();
+            evento.umbral = static_cast<double>(alerta.umbral());
+            evento.valor = valorDeMetrica(alerta.metrica(), snap);
+            evento.mensaje = alerta.mensaje();
+            notificador_->notificar(evento);
         }
 
         if (db_) {

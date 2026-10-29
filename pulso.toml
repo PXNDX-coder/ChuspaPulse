@@ -27,3 +27,11 @@ ruta_db = "pulso.db"
 cpu_max = 80.0
 ram_max = 85.0
 disco_max = 90.0
+
+[webhook]
+# URL a la que se envía un POST con el JSON de cada alerta disparada.
+# Vacío = notificaciones desactivadas. Solo http://.
+url = ""
+
+# Tiempo máximo de espera del webhook, en segundos.
+timeout_segundos = 3

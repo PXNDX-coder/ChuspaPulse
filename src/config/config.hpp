@@ -57,11 +57,17 @@ struct ConfigStorage {
     std::string ruta_db = "ChuspaPulse.db";
 };
 
+struct ConfigWebhook {
+    std::string url;               // Vacío = notificaciones desactivadas
+    int         timeout_segundos = 3;
+};
+
 struct Config {
     ConfigServidor servidor;
     ConfigSampler  sampler;
     ConfigStorage  storage;
     UmbralesConfig umbrales;
+    ConfigWebhook  webhook;
     std::string    nivel_log = "info";
     /// Formato de salida de métricas.
     /// Valores válidos: json, csv, prometheus

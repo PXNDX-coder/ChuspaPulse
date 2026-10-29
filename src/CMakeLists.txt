@@ -36,6 +36,7 @@ target_sources(pulso PRIVATE
     http/handler_alerts.cpp
     alertas/alerta_umbral.cpp
     alertas/gestor_alertas.cpp
+    alertas/notificador_webhook.cpp
 )
 
 # Collector de CPU para Windows: solo se compila en plataforma WIN32.

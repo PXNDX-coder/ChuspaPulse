@@ -400,6 +400,13 @@ int main(int argc, char* argv[]) {
         pulso::utils::logging::Logger::instancia().warn(mensaje);
     });
 
+    // Notificaciones externas por webhook (desactivadas si la URL está vacía)
+    if (!cfg.webhook.url.empty()) {
+        gestorAlertas.setNotificador(ChuspaPulse::alertas::crearNotificadorWebhook(
+            cfg.webhook.url, cfg.webhook.timeout_segundos));
+        log.info("Webhook de alertas activo -> " + cfg.webhook.url);
+    }
+
     log.info("GestorAlertas activo -> Umbrales: CPU=" +
              std::to_string(cfg.umbrales.cpu_max) + "%, RAM=" +
              std::to_string(cfg.umbrales.ram_max) + "%, Disco=" +

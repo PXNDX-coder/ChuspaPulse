@@ -4,8 +4,10 @@
 #include <cstdint>
 #include <vector>
 #include <functional>
+#include <memory>
 #include <string>
 #include "alerta_umbral.hpp"
+#include "inotificador.hpp"
 
 namespace ChuspaPulse::alertas {
 
@@ -54,6 +56,12 @@ public:
     void setCallback(std::function<void(const std::string&)> callback);
 
     /**
+     * @brief Establece el notificador externo (por ejemplo, un webhook HTTP).
+     * @param notificador Se invoca por cada alerta disparada; nullptr lo desactiva.
+     */
+    void setNotificador(std::shared_ptr<INotificador> notificador);
+
+    /**
      * @brief Evalúa todas las alertas registradas contra el snapshot.
      *
      * Solo llama el callback para las alertas que se disparan.
@@ -91,6 +99,7 @@ private:
     SQLite::Database* db_{nullptr};
     std::vector<AlertaUmbral> alertas_;
     std::function<void(const std::string&)> callback_;
+    std::shared_ptr<INotificador> notificador_;
 };
 
 } // namespace ChuspaPulse::alertas

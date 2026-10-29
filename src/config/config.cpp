@@ -113,6 +113,14 @@ Config mapear(const toml::table& doc)
     cfg.umbrales.disco_max =
         leer<double>(doc, "umbrales", "disco_max", cfg.umbrales.disco_max);
 
+    // [webhook]
+    cfg.webhook.url =
+        leer<std::string>(doc, "webhook", "url", cfg.webhook.url);
+
+    cfg.webhook.timeout_segundos =
+        leer<int64_t>(doc, "webhook", "timeout_segundos",
+                      cfg.webhook.timeout_segundos);
+
 
 
     // nivel_log (clave raíz)
@@ -192,6 +200,16 @@ Config cargar(const std::string& ruta)
             throw std::invalid_argument(
                 "Valor inválido para intervalo_segundos: " +
                 std::to_string(cfg.sampler.intervalo_segundos)
+            );
+        }
+
+
+        // Validar timeout del webhook
+        if (cfg.webhook.timeout_segundos <= 0) {
+
+            throw std::invalid_argument(
+                "Valor inválido para timeout_segundos: " +
+                std::to_string(cfg.webhook.timeout_segundos)
             );
         }
 

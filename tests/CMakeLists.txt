@@ -169,3 +169,19 @@ target_link_libraries(test_formatter_text PRIVATE
     GTest::gtest_main
 )
 gtest_discover_tests(test_formatter_text)
+
+add_executable(test_notificador_webhook
+    automatizados/unit/test_notificador_webhook.cpp
+    ${PROJECT_SOURCE_DIR}/src/alertas/notificador_webhook.cpp
+)
+target_include_directories(test_notificador_webhook PRIVATE
+    ${PROJECT_SOURCE_DIR}/src
+)
+target_link_libraries(test_notificador_webhook PRIVATE
+    GTest::gtest
+    GTest::gtest_main
+    httplib
+    nlohmann_json
+    Threads::Threads
+)
+gtest_discover_tests(test_notificador_webhook)
