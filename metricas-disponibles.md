@@ -1,4 +1,4 @@
-# Métricas disponibles en Pulso
+# Métricas disponibles en ChuspaPulse
 
 Esta página lista todas las métricas que recopila y expone el sistema, con su representación JSON, tipo, unidad, rango, fuente y disponibilidad.
 
