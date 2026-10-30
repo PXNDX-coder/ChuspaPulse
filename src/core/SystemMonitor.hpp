@@ -13,7 +13,7 @@
  *
  * Mantiene una lista interna de collectors registrados vía addCollector().
  * Al llamar a collectAll(), itera sobre ellos, combina todas sus métricas
- * en un único ChuspaPulse::core::Snapshot y lo retorna.
+ * en un único chuspapulse::core::Snapshot y lo retorna.
  *
  * Los errores de un collector individual se capturan y registran en stderr
  * sin interrumpir los demás (fail-safe).
@@ -46,16 +46,16 @@ public:
      * con el monitor en ejecución.
      *
      * @param collector  Puntero compartido a cualquier implementación de
-     *                   ChuspaPulse::collectors::ICollector. No debe ser nullptr.
+     *                   chuspapulse::collectors::ICollector. No debe ser nullptr.
      *
      * @pre  `collector != nullptr`
      * @post El collector queda registrado y será invocado en el próximo
      *       collectAll().
      *
-     * @see ChuspaPulse::collectors::ICollector
+     * @see chuspapulse::collectors::ICollector
      * @see collectAll()
      */
-    void addCollector(std::shared_ptr<ChuspaPulse::collectors::ICollector> collector);
+    void addCollector(std::shared_ptr<chuspapulse::collectors::ICollector> collector);
 
     /**
      * @brief Ejecuta todos los collectors registrados y combina sus métricas.
@@ -70,16 +70,16 @@ public:
      * Si no hay collectors registrados, retorna un snapshot vacío con el
      * timestamp actual y un vector de métricas vacío (sin crash).
      *
-     * @return ChuspaPulse::core::Snapshot con todas las métricas combinadas y el
+     * @return chuspapulse::core::Snapshot con todas las métricas combinadas y el
      *         timestamp Unix del momento de la llamada.
      *
      * @note El timestamp se toma una sola vez al inicio de la iteración para
      *       que todas las métricas del snapshot compartan el mismo instante.
      *
      * @see addCollector()
-     * @see ChuspaPulse::core::Snapshot
+     * @see chuspapulse::core::Snapshot
      */
-    ChuspaPulse::core::Snapshot collectAll();
+    chuspapulse::core::Snapshot collectAll();
 
     // ─────────────────────────── API legacy ──────────────────────────────────
 
@@ -124,7 +124,7 @@ private:
      * Protegida por convención; no se usa mutex ya que SystemMonitor
      * no está diseñado para acceso concurrente en esta versión.
      */
-    std::vector<std::shared_ptr<ChuspaPulse::collectors::ICollector>> collectors_;
+    std::vector<std::shared_ptr<chuspapulse::collectors::ICollector>> collectors_;
 
     /** @brief Mapa de métricas de la API legacy (usado por getMetrics()). */
     std::map<std::string, double> metrics_;
