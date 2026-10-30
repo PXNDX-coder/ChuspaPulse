@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace ChuspaPulse {
+namespace chuspapulse {
     const std::string APP_VERSION = "0.1.0";
 }
 
