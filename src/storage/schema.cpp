@@ -1,6 +1,6 @@
 #include "schema.hpp"
 
-namespace ChuspaPulse::storage {
+namespace chuspapulse::storage {
 /**
  * @brief Inicializa el esquema de la base de datos SQLite.
  *
@@ -49,4 +49,4 @@ void inicializarEsquema(SQLite::Database& db) {
     );
 }
 
-} // namespace ChuspaPulse::storage
+} // namespace chuspapulse::storage
